@@ -1,5 +1,5 @@
 /**
- * This file is provided by Facebook for testing and evaluation purposes
+ * threadStore file is provided by Facebook for testing and evaluation purposes
  * only. Facebook reserves all rights not expressly granted.
  *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
@@ -14,21 +14,24 @@ import { Store } from 'thundercats';
 import assign from 'object-assign';
 import ChatMessageUtils from '../utils/ChatMessageUtils';
 
-export default class ThreadStore extends Store {
-  constructor(cat) {
-    super();
+const initValue = {
+  threads: {},
+  currentID: null
+};
+
+export default Store(initValue)
+  .refs({ displayName: 'ThreadStore' })
+  .init(({ instance: threadStore, args: [cat] }) => {
     const chatActions = cat.getActions('chatActions');
     const {
       clickThread,
       receiveRawMessages
     } = chatActions;
 
-    this.value = {
-      threads: {},
-      currentID: null
+    threadStore.value = {
     };
 
-    this.register(clickThread.map(threadID => ({
+    threadStore.register(clickThread.map(threadID => ({
       transform: ({ threads })=> {
         const newThreads = Object.keys(threads).reduce((result, id) => {
           const thread = threads[id];
@@ -52,7 +55,7 @@ export default class ThreadStore extends Store {
       }
     })));
 
-    this.register(receiveRawMessages.map(rawMessages => ({
+    threadStore.register(receiveRawMessages.map(rawMessages => ({
       transform: ({ threads, currentID }) => {
         const newThreads = assign({}, threads);
 
@@ -82,7 +85,6 @@ export default class ThreadStore extends Store {
         };
       }
     })));
-  }
 
-  static displayName = 'ThreadStore'
-}
+    return threadStore;
+  });

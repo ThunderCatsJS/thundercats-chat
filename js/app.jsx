@@ -12,6 +12,7 @@
 
 import React from 'react';
 import { Cat } from 'thundercats';
+import { Render } from 'thundercats-react';
 import ChatApp from './components/ChatApp.jsx';
 import ExampleData from './ChatExampleData';
 import ChatActions from './actions/ChatActions';
@@ -21,18 +22,16 @@ import MessageStore from './stores/MessageStore';
 ExampleData.init();
 
 // This file bootstraps the entire application.
-class Chat extends Cat {
-  constructor() {
-    super();
-    this.register(ChatActions);
-    this.register(ThreadStore, this);
-    this.register(MessageStore, this);
-  }
-}
+const ChatCat = Cat()
+  .refs({ displayName: 'ChatApp' })
+  .init(({ instance: chatCat }) => {
+    chatCat.register(ChatActions);
+    chatCat.register(ThreadStore, null, chatCat);
+    chatCat.register(MessageStore, null, chatCat);
+  });
 
-const chat = new Chat();
-
-chat.render(
+Render(
+  ChatCat(),
   <ChatApp />,
   document.getElementById('react')
 ).subscribe(

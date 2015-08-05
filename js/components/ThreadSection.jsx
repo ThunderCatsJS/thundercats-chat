@@ -11,7 +11,7 @@
  */
 
 import React, { PropTypes } from 'react';
-import { createContainer } from 'thundercats';
+import { createContainer } from 'thundercats-react';
 
 import ThreadListItem from '../components/ThreadListItem.jsx';
 import ChatMessageUtils from '../utils/ChatMessageUtils';

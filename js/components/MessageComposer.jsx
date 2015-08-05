@@ -22,6 +22,7 @@ export default class MessageComposer extends React.Component {
 
   static displayName = 'MessageComposer'
   static propTypes: {
+    chatActions: React.PropTypes.object,
     thread: React.PropTypes.object
   }
 

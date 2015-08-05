@@ -11,7 +11,7 @@
  */
 
 import React, { PropTypes } from 'react';
-import { createContainer } from 'thundercats';
+import { createContainer } from 'thundercats-react';
 import messageServices from '../services/messages';
 import MessageComposer from './MessageComposer.jsx';
 import MessageListItem from './MessageListItem.jsx';

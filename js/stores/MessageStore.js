@@ -1,5 +1,5 @@
 /**
- * This file is provided by Facebook for testing and evaluation purposes
+ * messageStore file is provided by Facebook for testing and evaluation purposes
  * only. Facebook reserves all rights not expressly granted.
  *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
@@ -14,7 +14,7 @@ import assign from 'object-assign';
 import ChatMessageUtils from '../utils/ChatMessageUtils';
 
 function markAllInThreadRead(messages, threadID) {
-  return Object.keys(messages).reduce(function (result, id) {
+  return Object.keys(messages).reduce(function(result, id) {
     result[id] = messages[id].threadID === threadID ?
       assign({}, messages[id], {isRead: true}) :
       messages[id];
@@ -23,21 +23,18 @@ function markAllInThreadRead(messages, threadID) {
   }, {});
 }
 
-export default class MessageStore extends Store {
-  constructor(cat) {
-    super();
+export default Store()
+  .refs({ displayName: 'MessageStore' })
+  .init(({ instance: messageStore, args: [cat] }) => {
     const chatActions = cat.getActions('chatActions');
     const threadStore = cat.getStore('threadStore');
-
     const {
       clickThread,
       createMessage,
       receiveRawMessages
     } = chatActions;
 
-    this.value = {};
-
-    this.register(
+    messageStore.register(
       clickThread.withLatestFrom(
         threadStore,
         (e, { currentID }) => currentID
@@ -47,7 +44,7 @@ export default class MessageStore extends Store {
       }))
     );
 
-    this.register(createMessage.map(({ message, observable }) => {
+    messageStore.register(createMessage.map(({ message, observable }) => {
       return {
         transform: messages => {
           const newMessages = assign({}, messages);
@@ -58,7 +55,7 @@ export default class MessageStore extends Store {
       };
     }));
 
-    this.register(
+    messageStore.register(
       receiveRawMessages
         .withLatestFrom(threadStore, (rawMessages, { currentID }) => ({
           rawMessages,
@@ -82,7 +79,5 @@ export default class MessageStore extends Store {
           }
         }))
     );
-  }
-
-  static displayName = 'MessageStore'
-}
+    return messageStore;
+  });

@@ -1,15 +1,9 @@
 import { Actions } from 'thundercats';
 import messageServices from '../services/messages';
 
-export default class ChatActions extends Actions {
-  constructor() {
-    super([
-      'clickThread',
-      'receiveRawMessages'
-    ]);
-  }
-
-  static displayName = 'ChatActions'
+export default Actions({
+  clickThread: null,
+  receiveRawMessages: null,
 
   createMessage(data) {
     const text = data.text;
@@ -31,4 +25,5 @@ export default class ChatActions extends Actions {
       observable: messageServices.createMessage(message)
     };
   }
-}
+})
+  .refs({ displayName: 'ChatActions' });
