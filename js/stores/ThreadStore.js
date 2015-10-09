@@ -19,8 +19,11 @@ const initValue = {
   currentID: null
 };
 
-export default Store(initValue)
-  .refs({ displayName: 'ThreadStore' })
+export default Store()
+  .refs({
+    displayName: 'ThreadStore',
+    value: initValue
+  })
   .init(({ instance: threadStore, args: [cat] }) => {
     const chatActions = cat.getActions('chatActions');
     const {

@@ -63,7 +63,7 @@ export default class MessageSection extends React.Component {
     const { chatActions } = this.props;
     this.scrollToBottom();
     messageServices.getAllMessages()
-      .firstOrDefault()
+      .first()
       .subscribe(rawMessages => {
         chatActions.receiveRawMessages(rawMessages);
       });

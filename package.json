@@ -8,9 +8,9 @@
     "classnames": "^2.1.1",
     "object-assign": "^1.0.0",
     "react": "^0.13.3",
-    "rx": "^2.5.2",
-    "thundercats": "^2.1.0",
-    "thundercats-react": "^0.1.0"
+    "rx": "^4.0.0",
+    "thundercats": "^3.0.0",
+    "thundercats-react": "~0.3.0"
   },
   "devDependencies": {
     "babel-core": "^5.8.25",

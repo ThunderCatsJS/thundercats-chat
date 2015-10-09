@@ -2,6 +2,7 @@ import { Actions } from 'thundercats';
 import messageServices from '../services/messages';
 
 export default Actions({
+  refs: { displayName: 'ChatActions' },
   clickThread: null,
   receiveRawMessages: null,
 
@@ -25,5 +26,4 @@ export default Actions({
       observable: messageServices.createMessage(message)
     };
   }
-})
-  .refs({ displayName: 'ChatActions' });
+});
