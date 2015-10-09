@@ -28,9 +28,6 @@ export default Store(initValue)
       receiveRawMessages
     } = chatActions;
 
-    threadStore.value = {
-    };
-
     threadStore.register(clickThread.map(threadID => ({
       transform: ({ threads })=> {
         const newThreads = Object.keys(threads).reduce((result, id) => {

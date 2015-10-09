@@ -16,7 +16,7 @@ import { createContainer } from 'thundercats-react';
 import ThreadListItem from '../components/ThreadListItem.jsx';
 import ChatMessageUtils from '../utils/ChatMessageUtils';
 
-function getUnreadCount(threads) {
+function getUnreadCount(threads = {}) {
   let unreadCount = 0;
   Object.keys(threads).forEach(id => {
     if (!threads[id].lastMessage.isRead) {

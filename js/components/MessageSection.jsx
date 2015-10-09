@@ -54,7 +54,7 @@ export default class MessageSection extends React.Component {
 
   static displayName = 'MessageSection'
   static propTypes = {
-    chatActions: PropTypes.object.isRequired,
+    chatActions: PropTypes.object,
     messages: PropTypes.array,
     thread: PropTypes.object
   }
